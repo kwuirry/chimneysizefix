@@ -2,34 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>kwuirry</title>
+  <style>
+    html, body, iframe {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      display: block;
+    }
+  </style>
 </head>
-<body style="margin: 0;">
-
-  <div id="content">Loading...</div>
-
-  <script>
-    const url = "https://cdn.jsdelivr.net/gh/Kwuirry/chimneyassets@main/adifferentsnowgrave.html";
-
-    fetch(url)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error("Failed to fetch HTML: " + response.status);
-        }
-        return response.text();
-      })
-      .then(html => {
-        document.open();
-        document.write(html);
-        document.close();
-      })
-      .catch(error => {
-        document.getElementById("content").textContent =
-          "Failed to load page: " + error.message;
-        console.error(error);
-      });
-  </script>
-
+<body>
+  <iframe
+    src="https://cdn.jsdelivr.net/gh/Kwuirry/chimneyassets@main/adifferentsnowgrave.html"
+    title="kwuirry">
+  </iframe>
 </body>
 </html>
