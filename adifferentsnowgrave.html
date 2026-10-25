@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>kwuirry</title>
+</head>
+<body>
+<script>
+const repo = "Kwuirry/chimneyassets";
+const file = "adifferentsnowgrave.html";
+
+fetch("https://api.github.com/repos/" + repo + "/commits/main", {
+  cache: "no-store"
+})
+  .then(r => {
+    if (!r.ok) throw new Error("GitHub API error: " + r.status);
+    return r.json();
+  })
+  .then(d =>
+    "https://cdn.jsdelivr.net/gh/" + repo + "@" + d.sha + "/" + file
+  )
+  .catch(() =>
+    "https://cdn.jsdelivr.net/gh/" + repo + "@main/" + file
+  )
+  .then(url => fetch(url, { cache: "no-store" }))
+  .then(r => {
+    if (!r.ok) throw new Error("CDN error: " + r.status);
+    return r.text();
+  })
+  .then(html => {
+    document.open();
+    document.write(html);
+    document.close();
+  })
+  .catch(e => {
+    document.body.textContent = "Failed to load page: " + e.message;
+  });
+</script>
+</body>
+</html>
