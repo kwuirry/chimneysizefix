@@ -1,0 +1,11 @@
+function doGet() {
+  // fetch html from my github repo on jsdelivr
+  var cdnUrl = "https://cdn.jsdelivr.net/gh/Kwuirry/chimneyassets@main/adifferentsnowgrave.html";
+  var response = UrlFetchApp.fetch(cdnUrl);
+  var htmlContent = response.getContentText();
+  
+  // create extra browser stuff
+  return HtmlService.createHtmlOutput(htmlContent)
+    .setTitle("kwuirry")
+    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+}
