@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>kwuirry</title>
+</head>
+<body>
+<script>
+const repo = "Kwuirry/chimneyassets";
+const file = "eaglercraft.html";
+
+fetch("https://api.github.com/repos/" + repo + "/commits/main", {
+  cache: "no-store"
+})
+  .then(r => {
+    if (!r.ok) throw new Error("GitHub API: " + r.status);
+    return r.json();
+  })
+  .then(d =>
+    "https://cdn.githubraw.com/" + repo + "/" + d.sha + "/" + file
+  )
+  .then(url => fetch(url))
+  .then(r => {
+    if (!r.ok) throw new Error("CDN: " + r.status);
+    return r.text();
+  })
+  .then(html => {
+    document.open();
+    document.write(html);
+    document.close();
+  })
+  .catch(e => {
+    document.body.textContent = "Failed to load page: " + e.message;
+  });
+</script>
+</body>
+</html>
